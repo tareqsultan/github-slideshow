@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google Sheets API Test</title>
+</head>
+<body>
+
+<h1>اختبار قراءة Google Sheet</h1>
+
+<button onclick="readSheet()">قراءة البيانات</button>
+
+<pre id="output"></pre>
+
+<script>
+const apiKey = 'AIzaSyAi0IRCp8boVp59OVEzSIuaNx5bD4vlC';
+const spreadsheetId = '1LUFGkWu77h_TQ7ZIhB4bBzA-GyqFF6wAosAAi2XheTA';
+const sheetName = 'Sheet1'; // اسم الورقة
+
+function readSheet() {
+  const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}?key=${apiKey}`;
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      document.getElementById('output').textContent = JSON.stringify(data.values, null, 2);
+    })
+    .catch(error => {
+      console.error('حدث خطأ:', error);
+      document.getElementById('output').textContent = 'خطأ في الاتصال!';
+    });
+}
+</script>
+
+</body>
+</html>
